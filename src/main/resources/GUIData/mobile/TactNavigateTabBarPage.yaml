@@ -1,0 +1,64 @@
+baseClass: "com.paypal.selion.testcomponents.BasicPageImpl"
+defaultLocale: "US"
+platform: "mobile"
+elements:
+  tactEmailButton:
+    ios:
+      US: "//XCUIElementTypeButton[@name='Email']"
+    android:
+      US: ""
+  tactCalendarButton:
+    ios:
+      US: "//XCUIElementTypeButton[@name='Calendar']"
+    android:
+      US: "//android.widget.CheckedTextView[@text='Calendar']"
+  tactContactsButton:
+    ios:
+      US: "//XCUIElementTypeButton[@name='Contacts']"
+    android:
+      US: "//android.widget.CheckedTextView[@text='Contacts']"
+  tactOpportunitiesButton:
+    ios:
+      US: "//XCUIElementTypeButton[@name='Opportunities']"
+    android:
+      US: "//android.widget.CheckedTextView[@text='Opportunities']"
+  notebookButton:
+    ios:
+      US: "//XCUIElementTypeButton[@name='Notebook']"
+    android:
+      US: "//android.widget.CheckedTextView[@text='Notebook']"
+  notebookMoreButton:
+    ios:
+      US: "//XCUIElementTypeStaticText[@name='Notebook']"
+    android:
+      US: ""
+  notificationsButton:
+    ios:
+      US: "//XCUIElementTypeStaticText[@name='Notifications']"
+    android:
+      US: ""
+  settingsButton:
+    ios:
+      US: "//XCUIElementTypeStaticText[@name='Settings']"
+    android:
+      US: "//android.widget.CheckedTextView[@text='Settings']"
+  tactIOSMoreButton:
+    ios:
+      US: "//XCUIElementTypeButton[@name='More']"
+    android:
+      US: ""
+  tactIOSMoreTitleLabel:
+    ios:
+      US: "//XCUIElementTypeOther[@name='More']"
+    android:
+      US: ""
+  tactAndroidNavigateButton:
+    ios:
+      US: ""
+    android:
+      US: "//android.widget.ImageButton[@content-desc='Navigate up']"
+pageTitle:
+  US: "page_object"
+pageValidators: [
+  tactEmailButton
+]

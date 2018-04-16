@@ -1,0 +1,21 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="TestNG" verbose="1">
+    <test name="Mobile">
+        <!--<parameter name="mobileNodeType" value="appium"/>-->
+
+        <!--<parameter name="mobileAppLanguage" value="en"/>-->
+        <!--<parameter name="mobilePlatform" value="IOS"/>-->
+        <!--<parameter name="appPath" value="/Users/sakie/workspace/testingEnv/CucumberBasics/Applications/TactAuth.app"/>-->
+        <!--<parameter name="mobileDevice" value="iphone:11.2"/>-->
+        <!--<parameter name="mobileDeviceType" value="iPhone X"/>-->
+        <classes>
+            <class name="Runner.AndroidTestRunnerNoReset"/>
+            <class name="Runner.TactTestRunnerNoReset"/>
+        </classes>
+    </test>
+    <!--<test name="testing withTestRunner">-->
+        <!--<classes>-->
+            <!--<class name="Runner.RunCukesTest"></class>-->
+        <!--</classes>-->
+    <!--</test>-->
+</suite>
