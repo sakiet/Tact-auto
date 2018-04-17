@@ -49,6 +49,19 @@ public class DriverUtils {
     }
 
     /**
+     * get the current testing environment type
+     * @return String
+     */
+    public static String getCurrentMobileOSType() {
+        TactWelcomePage tactWelcomePage = new TactWelcomePage();
+        if (tactWelcomePage.getPlatform().equals(WebDriverPlatform.ANDROID)){
+            return WebDriverPlatform.ANDROID.toString();
+        } else {
+            return WebDriverPlatform.IOS.toString();
+        }
+    }
+
+    /**
      * sleep for * sec
      * @param sec
      */

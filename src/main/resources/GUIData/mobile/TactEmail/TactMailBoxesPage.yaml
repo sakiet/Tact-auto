@@ -37,7 +37,7 @@ elements:
       US: ""
   AllOrGmailSentButton:
     ios:
-      US: "//XCUIElementTypeImage[@name='sent']"
+      US: "//XCUIElementTypeStaticText[@name='Sent']"
     android:
       US: ""
   draftsButton:
@@ -48,6 +48,11 @@ elements:
   trackedButton:
     ios:
       US: "//XCUIElementTypeStaticText[@name='Tracked']"
+    android:
+      US: ""
+  draftsButton:
+    ios:
+      US: "//XCUIElementTypeStaticText[@name='Drafts']"
     android:
       US: ""
   exchangeLabel:
