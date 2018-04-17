@@ -23,6 +23,7 @@ public class IOSTestInncerRunCukesClass {
     @CucumberOptions(
             features = ("src/test/resources/Features/Email.feature")
             ,glue = ("Steps")
+            ,tags={"@gmailSend"}
     )
     public class EmailFeatureRunCukesNoReset extends AbstractTestNGCucumberTests {
         @Test

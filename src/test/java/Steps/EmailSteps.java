@@ -63,7 +63,7 @@ public class EmailSteps implements En {
                         SeLionAsserts.verifyFalse(true, "Please give a correct String " +
                                 "(Inbox|Archive|Deleted Items|Junk Email|Sent Items)");
                 }
-            } else if (mailType.equalsIgnoreCase("Google") && mailType.equalsIgnoreCase("gmail")){
+            } else if (mailType.equalsIgnoreCase("Google") || mailType.equalsIgnoreCase("gmail")){
                 System.out.println("email type is : " + mailType);
 
                 switch (option) {
@@ -171,10 +171,10 @@ public class EmailSteps implements En {
 
             if (isSendEmail){
                 if ( isGmailType(sendEmailAddress) ){
-                    DriverUtils.scrollToBottom();
-                    Button googleSent = new Button("//XCUIElementTypeImage[@name='sent']");
+//                    Button googleSent = new Button("//XCUIElementTypeImage[@name='sent']");
+                    Button googleSent = new Button("//XCUIElementTypeStaticText[@name='Sent']");
                     googleSent.click();
-                    WebDriverWaitUtils.waitUntilElementIsVisible("//XCUIElementTypeNavigationBar[@name='Sent']");
+                    WebDriverWaitUtils.waitUntilElementIsVisible("\t//XCUIElementTypeOther[@name='Sent']");
                 } else {
                     tactMailBoxesPage.getSentItemsButton().tap();
                     WebDriverWaitUtils.waitUntilElementIsVisible("//XCUIElementTypeNavigationBar[@name='Sent Items']");

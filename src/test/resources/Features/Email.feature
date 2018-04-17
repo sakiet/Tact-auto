@@ -31,3 +31,13 @@ Feature: EmailFeature
 #    And Email: I "do not" send email and "w/o" save draft
     And Email: I "do" send email and "w/o" save draft
     And Email: I verify the email
+
+  @P1
+  @gmailSend
+  Scenario: send an email from exchange account in Tact
+    Given Common: I switch to "Email" page from tab bar
+    When Email: I send an new email from "gmail" mailType, "Inbox" option in MailBoxes page
+    Then Email: I create a simply email To "anotherPlatformExchangeEmail", Subject "Subject" and body ""
+#    And Email: I "do not" send email and "w/o" save draft
+    And Email: I "do" send email and "w/o" save draft
+    And Email: I verify the email
