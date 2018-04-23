@@ -6,22 +6,22 @@ elements:
     ios:
       US: "//XCUIElementTypeButton[@name='Email']"
     android:
-      US: ""
+      US: "//android.widget.TextView[@text='Email']"
   tactCalendarButton:
     ios:
       US: "//XCUIElementTypeButton[@name='Calendar']"
     android:
-      US: "//android.widget.CheckedTextView[@text='Calendar']"
+      US: "//android.widget.TextView[@text='Calendar']"
   tactContactsButton:
     ios:
       US: "//XCUIElementTypeButton[@name='Contacts']"
     android:
-      US: "//android.widget.CheckedTextView[@text='Contacts']"
+      US: "//android.widget.TextView[@text='Contacts']"
   tactOpportunitiesButton:
     ios:
       US: "//XCUIElementTypeButton[@name='Opportunities']"
     android:
-      US: "//android.widget.CheckedTextView[@text='Opportunities']"
+      US: "//android.widget.TextView[@text='Opportunities']"
   notebookButton:
     ios:
       US: "//XCUIElementTypeButton[@name='Notebook']"
@@ -31,7 +31,7 @@ elements:
     ios:
       US: "//XCUIElementTypeStaticText[@name='Notebook']"
     android:
-      US: ""
+      US: "//android.widget.Button[@text='Notebook']"
   notificationsButton:
     ios:
       US: "//XCUIElementTypeStaticText[@name='Notifications']"
@@ -41,22 +41,42 @@ elements:
     ios:
       US: "//XCUIElementTypeStaticText[@name='Settings']"
     android:
-      US: "//android.widget.CheckedTextView[@text='Settings']"
-  tactIOSMoreButton:
+      US: "//android.widget.Button[@text='Settings']"
+  tactMoreButton:
     ios:
       US: "//XCUIElementTypeButton[@name='More']"
     android:
-      US: ""
-  tactIOSMoreTitleLabel:
+      US: "//android.widget.TextView[@text='More']"
+  tactMoreTitleLabel:
     ios:
       US: "//XCUIElementTypeOther[@name='More']"
     android:
-      US: ""
+      US: "//android.widget.RelativeLayout/android.view.ViewGroup/android.widget.TextView[@text='More']"
   tactAndroidNavigateButton:
     ios:
       US: ""
     android:
       US: "//android.widget.ImageButton[@content-desc='Navigate up']"
+  tactOldVCalenderButton:
+    ios:
+      US: ""
+    android:
+      US: "//android.widget.CheckedTextView[@text='Calendar']"
+  tactOldVContactsButton:
+    ios:
+      US: ""
+    android:
+      US: "//android.widget.CheckedTextView[@text='Contacts']"
+  tactOldVOpportunitiesButton:
+    ios:
+      US: "//XCUIElementTypeButton[@name='Opportunities']"
+    android:
+      US: "//android.widget.CheckedTextView[@text='Opportunities']"
+  tactOldVSettingButton:
+    ios:
+      US: ""
+    android:
+      US: "//android.widget.CheckedTextView[@text='Settings']"
 pageTitle:
   US: "page_object"
 pageValidators: [

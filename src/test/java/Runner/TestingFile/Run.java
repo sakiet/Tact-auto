@@ -9,7 +9,7 @@ import org.testng.ITest;
 import org.testng.annotations.*;
 
 @CucumberOptions(
-        features = ("src/test/resources/Features/login.feature"),
+        features = ("src/test/resources/Features/TactUserAccount.feature"),
         glue = ("Steps")
 )
 public class Run extends AbstractTestNGCucumberTests implements ITest {

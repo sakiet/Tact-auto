@@ -65,7 +65,7 @@ public class CommonSteps implements En {
             DriverUtils.sleep(2);
 
             //Syncing data to your phone Page
-            if ( Grid.driver().findElementsByXPath(tactNavigateTabBarPage.getTactIOSMoreButton().getLocator()).size() == 0 &&
+            if ( Grid.driver().findElementsByXPath(tactNavigateTabBarPage.getTactMoreButton().getLocator()).size() == 0 &&
                     Grid.driver().findElementsByXPath(tactAccessSFPage.getTactSyncingDataToPhoneTitleLabel().getLocator()).size()!=0) {
                 System.out.println("Start waiting for \"Syncing data to your phone.\"");
                 WebDriverWaitUtils.waitUntilElementIsInvisible(tactAccessSFPage.getTactSyncingDataToPhoneTitleLabel());
@@ -90,29 +90,29 @@ public class CommonSteps implements En {
             }
             resyncPopUp();
 
-            //iOS only - More : Notebook, Notifications, Settings
-            if ( DriverUtils.isIOS() && ( tabBarOption.equalsIgnoreCase("More") ||
-                                          tabBarOption.equalsIgnoreCase("Notebook") ||
-                                          tabBarOption.equalsIgnoreCase("Notifications") ||
-                                          tabBarOption.equalsIgnoreCase("Settings") ) ) {
-                WebDriverWaitUtils.waitUntilElementIsVisible(tactNavigateTabBarPage.getTactIOSMoreButton());
-                tactNavigateTabBarPage.getTactIOSMoreButton().tap(tactNavigateTabBarPage.getTactIOSMoreTitleLabel());
+            //More : Notebook, Notifications, Settings
+            if ( tabBarOption.equalsIgnoreCase("More") ||
+                 tabBarOption.equalsIgnoreCase("Notebook") ||
+                 tabBarOption.equalsIgnoreCase("Notifications") ||
+                 tabBarOption.equalsIgnoreCase("Settings")) {
+                WebDriverWaitUtils.waitUntilElementIsVisible(tactNavigateTabBarPage.getTactMoreButton());
+                tactNavigateTabBarPage.getTactMoreButton().tap(tactNavigateTabBarPage.getTactMoreTitleLabel());
                 System.out.println("after click more button");
                 if (resyncPopUp() ) {
                     System.out.println("after resync pop up done");
                     DriverUtils.sleep(2);
                     DriverUtils.sleep(20);
-                    tactNavigateTabBarPage.getTactIOSMoreButton().tap(tactNavigateTabBarPage.getTactIOSMoreTitleLabel());
+                    tactNavigateTabBarPage.getTactMoreButton().tap(tactNavigateTabBarPage.getTactMoreTitleLabel());
                 }
                 System.out.println(">>>>>>");
                 System.out.println("after resync after click more button");
                 System.out.println("<<<<<<");
             }
 
-            if ( DriverUtils.isAndroid() ) {
-                WebDriverWaitUtils.waitUntilElementIsVisible(tactNavigateTabBarPage.getTactAndroidNavigateButton());
-                tactNavigateTabBarPage.getTactAndroidNavigateButton().tap(tactNavigateTabBarPage.getTactContactsButton());
-            }
+//            if ( DriverUtils.isAndroid() ) {
+//                WebDriverWaitUtils.waitUntilElementIsVisible(tactNavigateTabBarPage.getTactAndroidNavigateButton());
+//                tactNavigateTabBarPage.getTactAndroidNavigateButton().tap(tactNavigateTabBarPage.getTactContactsButton());
+//            }
 
             switch (tabBarOption) {
                 case "Email":   //Android not support
@@ -120,7 +120,8 @@ public class CommonSteps implements En {
                     tactNavigateTabBarPage.getTactEmailButton().tap();
                     resyncPopUp();
                     if ( Grid.driver().findElementsByXPath(tactMailBoxesPage.getMailBoxesTitleLabel().getLocator()).size() == 0 ) {
-                        tactMailBoxesPage.getBackToMailBoxesButton().tap(tactMailBoxesPage.getMailBoxesTitleLabel());
+                        tactMailBoxesPage.getBackToMailBoxesButton().tap();
+                        WebDriverWaitUtils.waitUntilElementIsVisible(tactMailBoxesPage.getMailBoxesTitleLabel());
                     }
                     resyncPopUp();
                     break;
@@ -173,6 +174,8 @@ public class CommonSteps implements En {
             }
 
             System.out.println("swtich to " + tabBarOption);
+
+//            DriverUtils.sleep(60);
         });
         Then("^Common: I click back icon$", () -> {
             System.out.println("^Common: I click back icon$");

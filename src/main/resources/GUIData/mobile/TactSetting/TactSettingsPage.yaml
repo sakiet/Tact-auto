@@ -27,6 +27,11 @@ elements:
       US: "//XCUIElementTypeStaticText[@name='Data Sources']"
     android:
       US: ""
+  appVersionLabel:
+    ios:
+      US: "//*[contains(@name,'3.')]"
+    android:
+      US: ""
   deleteAccountButton:
     ios:
       US: "//XCUIElementTypeStaticText[@name='Delete Account']"

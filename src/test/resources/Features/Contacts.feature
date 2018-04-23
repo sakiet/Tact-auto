@@ -117,3 +117,8 @@ Feature: ContactsFeature
     Then Settings: I back to Settings page from Sources page
     Then Contacts: I back to Contacts Main page from "Contact" page
 #    getGoBackToContactsMainPageButton
+  
+  
+  @Test
+  Scenario: testing navigation in Android
+    When Common: I switch to "Settings" page from tab bar

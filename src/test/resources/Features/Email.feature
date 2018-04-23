@@ -2,7 +2,18 @@ Feature: EmailFeature
   This feature deals with the Email functionality of the applicaiton
 
   @P0
-  @Connect
+  @ConnectEmailTabBar
+  @Gmail
+  Scenario: Connect Gmail in Tact Email tab bar
+    Given Common: I switch to "Email" page from tab bar
+    When Email: I connect with "Gmail" email account inside Email tab bar
+    When Common: I switch to "Webview" driver
+    Then Settings: I sign in the Gmail account
+#    Then Settings: I switch to "Gmail" option in Sources settings page
+#    And Settings: I disconnect the "Gmail" account
+
+  @P0
+  @ConnectEmailTabBar
   @Exchange
   Scenario: Connect Exchange in Tact Email tab bar
     Given Common: I switch to "Email" page from tab bar
@@ -10,17 +21,6 @@ Feature: EmailFeature
     When Settings: I sign in the Exchange account
 #    Then Settings: I switch to "Exchange" option in Sources settings page
 #    And Settings: I disconnect the "Exchange" account
-
-  @P0
-  @Connect  
-  @Gmail
-  Scenario: Add Gmail dataSources in Tact
-    Given Common: I switch to "Email" page from tab bar
-    When Email: I connect with "Gmail" email account inside Email tab bar
-    When Common: I switch to "Webview" driver
-    Then Settings: I sign in the Gmail account
-#    Then Settings: I switch to "Gmail" option in Sources settings page
-#    And Settings: I disconnect the "Gmail" account
   
   @P1
   @ExchangeSend

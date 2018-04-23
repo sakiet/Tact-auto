@@ -11,6 +11,10 @@ public class IOSTestInncerRunCukesClass {
             features = ("src/test/resources/Features/Onboarding.feature"),
             glue = ("Steps")
             ,tags={"@onboarding"}
+            , format = {
+                    "pretty",
+                    "html:target/report/cucumber-pretty-OnboardingRunCukesFullyReset",
+                    "json:target/report/OnboardingRunCukesFullyReset.json"}
     )
     public class OnboardingRunCukesFullyReset extends AbstractTestNGCucumberTests {
         @Test
@@ -19,13 +23,45 @@ public class IOSTestInncerRunCukesClass {
         }
     }
 
+    //appVersion
+    @CucumberOptions(
+            features = ("src/test/resources/Features/TactUserAccount.feature")
+            ,glue = ("Steps")
+            ,tags={"@getAppVersion"}
+    )
+    public class TactVersionFeatureCukesNoReset extends AbstractTestNGCucumberTests {
+        @Test
+        private void test(){ System.out.println("@Test Contacts Feature RunCukesTest"); }
+
+    }
+
     //Email
     @CucumberOptions(
             features = ("src/test/resources/Features/Email.feature")
             ,glue = ("Steps")
-            ,tags={"@ExchangeSend,@gmailSend,@P2"}
+            ,tags={"@P0"}
+            , format = {
+                    "pretty",
+                    "html:target/report/cucumber-pretty-AddEmailFromTabFeatureRunCukesNoReset",
+                    "json:target/report/AddEmailFromTabFeatureRunCukesNoReset.json"}
     )
-    public class EmailFeatureRunCukesNoReset extends AbstractTestNGCucumberTests {
+    public class AddEmailFromTabFeatureRunCukesNoReset extends AbstractTestNGCucumberTests {
+        @Test
+        private void test(){ System.out.println("@Test Contacts Feature RunCukesTest"); }
+
+    }
+
+    //Email
+    @CucumberOptions(
+            features = ("src/test/resources/Features/Email.feature")
+            ,glue = ("Steps")
+            ,tags={"@P1,@P2"}
+            , format = {
+                "pretty",
+                "html:target/report/cucumber-pretty-SendEmailFeatureRunCukesNoReset",
+                "json:target/report/SendEmailFeatureRunCukesNoReset.json"}
+    )
+    public class SendEmailFeatureRunCukesNoReset extends AbstractTestNGCucumberTests {
         @Test
         private void test(){ System.out.println("@Test Contacts Feature RunCukesTest"); }
 
@@ -33,9 +69,13 @@ public class IOSTestInncerRunCukesClass {
 
     //logout
     @CucumberOptions(
-            features = ("src/test/resources/Features/login.feature"),
+            features = ("src/test/resources/Features/TactUserAccount.feature"),
             glue = ("Steps")
             ,tags={"@logout"}
+            , format = {
+                "pretty",
+                "html:target/report/cucumber-pretty-TactLogoutRunCukesNoReset",
+                "json:target/report/TactLogoutRunCukesNoReset.json"}
     )
     public class TactLogoutRunCukesNoReset extends AbstractTestNGCucumberTests {
         @Test
@@ -46,9 +86,13 @@ public class IOSTestInncerRunCukesClass {
 
     //login
     @CucumberOptions(
-            features = ("src/test/resources/Features/login.feature"),
+            features = ("src/test/resources/Features/TactUserAccount.feature"),
             glue = ("Steps")
             ,tags={"@login"}
+            , format = {
+                "pretty",
+                "html:target/report/cucumber-pretty-TactLoginRunCukesNoReset",
+                "json:target/report/TactLoginRunCukesNoReset.json"}
     )
     public class TactLoginRunCukesNoReset extends AbstractTestNGCucumberTests {
         @Test
@@ -67,6 +111,10 @@ public class IOSTestInncerRunCukesClass {
 //        , tags={"@smoke,@P0"} "@note,@SFTask,@Event"
 //        ,tags={"@Task,@Log,@Event"}
             ,tags={"@Log"}
+            , format = {
+                "pretty",
+                "html:target/report/cucumber-pretty-TactContactsFeatureRunCukesNoReset",
+                "json:target/report/TactContactsFeatureRunCukesNoReset.json"}
     )
     public class TactContactsFeatureRunCukesNoReset extends AbstractTestNGCucumberTests {
         @Test
@@ -81,7 +129,11 @@ public class IOSTestInncerRunCukesClass {
             features = ("src/test/resources/Features/DataSources.feature")
             ,glue = ("Steps")
 //        ,tags={"@P0"}
-            ,tags = {"@LinkedIn"}
+            ,tags = {"@addLinkedIn"}
+            , format = {
+                "pretty",
+                "html:target/report/cucumber-pretty-TactDataSourcesFeatureRunCukesNoReset",
+                "json:target/report/TactDataSourcesFeatureRunCukesNoReset.json"}
     )
     public class TactDataSourcesFeatureRunCukesNoReset extends AbstractTestNGCucumberTests {
         @Test
@@ -93,9 +145,13 @@ public class IOSTestInncerRunCukesClass {
 
     //Delete
     @CucumberOptions(
-            features = ("src/test/resources/Features/login.feature"),
+            features = ("src/test/resources/Features/TactUserAccount.feature"),
             glue = ("Steps")
             ,tags={"@deleteAccount"}
+            , format = {
+                "pretty",
+                "html:target/report/cucumber-pretty-TactDeleteAccountRunCukesNoReset",
+                "json:target/report/TactDeleteAccountRunCukesNoReset.json"}
     )
     public class TactDeleteAccountRunCukesNoReset extends AbstractTestNGCucumberTests {
         @Test
@@ -110,6 +166,10 @@ public class IOSTestInncerRunCukesClass {
             features = ("src/test/resources/Features/Contacts.feature")
             ,glue = ("Steps")
             ,tags={"@createLead"}
+            , format = {
+                "pretty",
+                "html:target/report/cucumber-pretty-TactLeadFeatureRunCukesNoReset",
+                "json:target/report/TactLeadFeatureRunCukesNoReset.json"}
     )
     public class TactLeadFeatureRunCukesNoReset extends AbstractTestNGCucumberTests {
         @Test

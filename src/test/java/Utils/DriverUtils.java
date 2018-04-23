@@ -1,5 +1,6 @@
 package Utils;
 
+import Utils.dataObjects.IOSTime;
 import com.paypal.selion.internal.platform.grid.WebDriverPlatform;
 import com.paypal.selion.platform.asserts.SeLionAsserts;
 import com.paypal.selion.platform.grid.Grid;
@@ -11,10 +12,9 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import javafx.scene.web.WebView;
+import org.openqa.selenium.Capabilities;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -356,5 +356,45 @@ public class DriverUtils {
                         "(year|month|mm|date|hours|mins)");
         }
         return dateInfo;
+    }
+
+    public static void writeToFile(String file, String data){
+        FileWriter fw = null;
+        try {
+            File f = new File(file);
+            fw = new FileWriter(f);
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        PrintWriter pw = new PrintWriter(fw);
+        pw.println(data);
+        pw.flush();
+        try {
+            fw.flush();
+            pw.close();
+            fw.close();
+        } catch ( IOException e ){
+            e.printStackTrace();
+        }
+    }
+
+    public static String getAppName() {
+        Capabilities caps = Grid.driver().getCapabilities();
+        Object o = caps.getCapability("app");
+        String[] array = o.toString().split("/");
+        String appName = (array[array.length-1]).split("\\.")[0];
+        System.out.println("apptype: " + appName);
+
+        return appName;
+    }
+
+    public static String getAppFrom() {
+        String appName = getAppName();
+        if (isIOS() && getAppName().equals("Tact")) {
+            return "App_store";
+        } else {
+            return "local_build";
+        }
     }
 }

@@ -2,7 +2,8 @@ Feature: DataSourcesFeature
   This feature deals with the Data Sources functionality of the applicaiton
 
   @P0
-  @Exchange
+  @add
+  @addExchange
   Scenario: Add Exchange dataSources in Tact
     Given Common: I switch to "Settings" page from tab bar
     When Settings: I switch to "Data Sources" option in settings page
@@ -12,7 +13,8 @@ Feature: DataSourcesFeature
 #    And Settings: I disconnect the "Exchange" account
 
   @P0
-  @Gmail
+  @add
+  @addGmail
   Scenario: Add Gmail dataSources in Tact
     Given Common: I switch to "Settings" page from tab bar
     When Settings: I switch to "Data Sources" option in settings page
@@ -23,8 +25,9 @@ Feature: DataSourcesFeature
 #    And Settings: I disconnect the "Gmail" account
 
   @P0
-  @LinkedIn
-  Scenario: Add LinkedIn dataSources in Tac t
+  @add
+  @addLinkedIn
+  Scenario: Add LinkedIn dataSources in Tac
     Given Common: I switch to "Settings" page from tab bar
     When Settings: I switch to "Data Sources" option in settings page
     Then Settings: I switch to "LinkedIn" option in Sources settings page
@@ -33,3 +36,30 @@ Feature: DataSourcesFeature
 #    And Settings: I disconnect the "LinkedIn" account
 
 #    11.3 + Creating new XCUITestDriver (v2.64.0) session
+
+  @P0
+  @delete
+  @deleteExchange
+  Scenario: Add Exchange dataSources in Tact
+    Given Common: I switch to "Settings" page from tab bar
+    When Settings: I switch to "Data Sources" option in settings page
+    Then Settings: I switch to "Exchange" option in Sources settings page
+    And Settings: I disconnect the "Exchange" account
+
+  @P0
+  @delete
+  @deleteGmail
+  Scenario: Add Gmail dataSources in Tact
+    Given Common: I switch to "Settings" page from tab bar
+    When Settings: I switch to "Data Sources" option in settings page
+    Then Settings: I switch to "Gmail" option in Sources settings page
+    And Settings: I disconnect the "Gmail" account
+
+  @P0
+  @delete
+  @deleteLinkedIn
+  Scenario: Add LinkedIn dataSources in Tac t
+    Given Common: I switch to "Settings" page from tab bar
+    When Settings: I switch to "Data Sources" option in settings page
+    Then Settings: I switch to "LinkedIn" option in Sources settings page
+    And Settings: I disconnect the "LinkedIn" account

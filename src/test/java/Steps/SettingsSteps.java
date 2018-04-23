@@ -46,6 +46,7 @@ public class SettingsSteps implements En {
         When("^Settings: I switch to \"([^\"]*)\" option in settings page$", (String settingsOption) -> {
             System.out.println("^Setting: I switch to " + settingsOption + " option in settings page$");
 
+
             switch (settingsOption) {
                 case "Account":
                     WebDriverWaitUtils.waitUntilElementIsVisible(tactSettingsPage.getIosAccountButton());
@@ -198,6 +199,7 @@ public class SettingsSteps implements En {
             DriverUtils.convertToNativeAPPDriver();
 //            WebDriverWaitUtils.waitUntilElementIsVisible(tactSourcesPage.getSourcesTitleLabel());
             WebDriverWaitUtils.waitUntilElementIsVisible(tactNavigateTabBarPage.getTactEmailButton());
+            DriverUtils.sleep(5);
         });
         When("^Settings: I sign in the LinkedIn account$", () -> {
             System.out.println("^Settings: I sign in the linkedIn account$");

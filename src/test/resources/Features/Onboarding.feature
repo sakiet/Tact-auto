@@ -2,7 +2,7 @@ Feature: OnboardingFeature
   This feature deals with the onboarding functionality of the applicaiton
 
   @smoke
-  Scenario: Login with multi-user username and password
+  Scenario: onboarding with multi-user username and password
     Given Login: I click connect with SF button
     And Login-Webview: I enter the user email address
       | UserName | automation.tactSF@gmail.com   |
@@ -17,7 +17,7 @@ Feature: OnboardingFeature
 
   @P0
   @onboarding
-  Scenario: Login existing app with single-user username and password
+  Scenario: onboarding existing app with single-user username and password
     Given Login: I click connect with SF button
     And Common: I switch to "Webview" driver
     And Login-Webview: I "do not" send usage to google chrome and "do not" sign in Chrome

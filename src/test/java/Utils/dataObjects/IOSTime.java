@@ -86,6 +86,20 @@ public class IOSTime {
         System.out.println("current date " + displayMonth.showNum() + " " + displayDate + " " + displayYear);
     }
 
+    public static String getCurrentDate(){
+
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+
+        System.out.println("date : " + date);
+
+        displayMonth = Month.valueOf(new SimpleDateFormat("MMM").format(date));
+        displayDate = new SimpleDateFormat("dd").format(date);
+        displayYear = new SimpleDateFormat("yyyy").format(date);
+
+        return "current date " + displayMonth.showNum() + " " + displayDate + " " + displayYear;
+    }
+
     private static void convertTime(String expectTime){
         //12:25 am
         expectHours = expectTime.split(" ")[0].split(":")[0];

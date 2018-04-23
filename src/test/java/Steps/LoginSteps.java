@@ -192,6 +192,9 @@ public class LoginSteps implements En {
             } else {
                 System.out.println("Tact Syncing Data to Phone is done");
             }
+            if (DriverUtils.isIOS() && processOption.equalsIgnoreCase("login")) {
+                DriverUtils.sleep(5);
+            }
             //exchangeSync
             if (DriverUtils.isIOS() &&
                     processOption.equalsIgnoreCase("login") &&
@@ -209,7 +212,7 @@ public class LoginSteps implements En {
             if (processOption.equalsIgnoreCase("onboarding")){
                 WebDriverWaitUtils.waitUntilElementIsVisible(tactAlertsPopUpPage.getAlertsAllowButton());
             } else if (processOption.equalsIgnoreCase("login")) {
-                WebDriverWaitUtils.waitUntilElementIsVisible(tactNavigateTabBarPage.getTactIOSMoreButton());
+                WebDriverWaitUtils.waitUntilElementIsVisible(tactNavigateTabBarPage.getTactMoreButton());
             }
             DriverUtils.sleep(2);
             System.out.println(">>>>>>>After login");
