@@ -393,6 +393,8 @@ public class DriverUtils {
         String appName = getAppName();
         if (isIOS() && getAppName().equals("Tact")) {
             return "App_store";
+        } if (isAndroid() && getAppName().equals("Tact")) {
+            return "Play_store";
         } else {
             return "local_build";
         }

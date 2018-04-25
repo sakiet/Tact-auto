@@ -30,6 +30,7 @@ public class AndroidTactSanityTesting extends CustomPicoContainer {
     static final String device = "android:8.1";
     static final String deviceType = "Android Emulator";
     static final String platformName = "Android";
+    static final String appPackage = "appPackage:com.tactile.tact.alpha";
 
     @DataProvider(name="yamlDataProvider")
     public Object[][] getYamlDataProvider() throws IOException {
@@ -73,7 +74,8 @@ public class AndroidTactSanityTesting extends CustomPicoContainer {
                     "noReset:true",
                     "fullReset:false"
                     //for Alpha only, dev do not need this part
-                    , "appPackage:com.tactile.tact.alpha",
+                    , appPackage,
+//                    , "appPackage:com.tactile.tact.alpha",
                     "appActivity:com.tactile.tact.onboarding.SignInActivity"
             }
     )

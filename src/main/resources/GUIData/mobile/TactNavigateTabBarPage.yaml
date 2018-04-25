@@ -57,26 +57,31 @@ elements:
       US: ""
     android:
       US: "//android.widget.ImageButton[@content-desc='Navigate up']"
-  tactOldVCalenderButton:
+  tactAndroidOldVCalenderButton:
     ios:
       US: ""
     android:
       US: "//android.widget.CheckedTextView[@text='Calendar']"
-  tactOldVContactsButton:
+  tactAndroidOldVContactsButton:
     ios:
       US: ""
     android:
       US: "//android.widget.CheckedTextView[@text='Contacts']"
-  tactOldVOpportunitiesButton:
+  tactAndroidOldVOpportunitiesButton:
     ios:
       US: "//XCUIElementTypeButton[@name='Opportunities']"
     android:
       US: "//android.widget.CheckedTextView[@text='Opportunities']"
-  tactOldVSettingButton:
+  tactAndroidOldVSettingButton:
     ios:
       US: ""
     android:
       US: "//android.widget.CheckedTextView[@text='Settings']"
+  tactAndroidOldVMoreOptionsButton:
+    ios:
+      US: ""
+    android:
+      US: "//android.widget.ImageView[@content-desc='More options']"
 pageTitle:
   US: "page_object"
 pageValidators: [

@@ -98,6 +98,7 @@ public class LoginSteps implements En {
 
             //iOS
             if ( DriverUtils.isIOS() ){
+                System.out.println("IOS");
                 sfAccountName = CustomPicoContainer.userInfor.getSalesforceIOSAccountName();
 
                 WebDriverWaitUtils.waitUntilElementIsVisible( sfLoginWebviewPage.getUserEmailTextField().getLocator() );
@@ -109,6 +110,7 @@ public class LoginSteps implements En {
 
             //Android
             } else {
+                System.out.println("Android");
                 sfAccountName = CustomPicoContainer.userInfor.getSalesforceAndroidAccountName();
 
                 WebDriverWaitUtils.waitUntilElementIsVisible(sfLoginWebviewPage.getSfLogoImage());
@@ -165,8 +167,14 @@ public class LoginSteps implements En {
             System.out.println("^Login: After SF connected, then Add Contacts to Tact$");
 
             WebDriverWaitUtils.waitUntilElementIsVisible( tactAccessSFPage.getAddContactToTactTitleLabel() );
-            tactAccessSFPage.getAddContactsButton().tap( tactAlertsPopUpPage.getTactAccessContactsMsgLabel() );
-            tactAlertsPopUpPage.getAlertsOKButton().tap(tactAccessSFPage.getTactSyncingLabel());
+            tactAccessSFPage.getAddContactsButton().tap( );
+            if (DriverUtils.isIOS()) {
+                WebDriverWaitUtils.waitUntilElementIsVisible( tactAlertsPopUpPage.getTactAccessContactsMsgLabel());
+                tactAlertsPopUpPage.getAlertsOKButton().tap();
+            } else if (Grid.driver().findElementsByXPath(tactAlertsPopUpPage.getAlertsAllowButton().getLocator()).size()!=0) {
+                tactAlertsPopUpPage.getAlertsAllowButton().tap();
+            }
+            WebDriverWaitUtils.waitUntilElementIsVisible(tactAccessSFPage.getTactSyncingLabel());
         });
         And("^Login: Waiting for Syncing finished in \"([^\"]*)\" process$", (String processOption) -> {
             System.out.println("^Login: Waiting for Syncing finished in " + processOption + " process$");
@@ -184,7 +192,9 @@ public class LoginSteps implements En {
                 }
                 System.out.println("Tact Syncing is done");
             }
-            if (Grid.driver().findElementsByXPath(tactAccessSFPage.getTactSyncingDataToPhoneTitleLabel().getLocator()).size()!=0) {
+            //Syncing data to your phone.
+            if (DriverUtils.isIOS() &&
+                    Grid.driver().findElementsByXPath(tactAccessSFPage.getTactSyncingDataToPhoneTitleLabel().getLocator()).size()!=0) {
                 System.out.println("Start waiting for \"Syncing data to your phone.\"");
                 WebDriverWaitUtils.waitUntilElementIsInvisible(tactAccessSFPage.getTactSyncingDataToPhoneTitleLabel());
                 WebDriverWaitUtils.waitUntilElementIsInvisible(tactAccessSFPage.getTactSyncingItemsLabel());
@@ -209,9 +219,9 @@ public class LoginSteps implements En {
                 System.out.println("\"exchange Reauth Sync\" finished");
                 DriverUtils.sleep(2);
             }
-            if (processOption.equalsIgnoreCase("onboarding")){
+            if (DriverUtils.isIOS() && processOption.equalsIgnoreCase("onboarding")){
                 WebDriverWaitUtils.waitUntilElementIsVisible(tactAlertsPopUpPage.getAlertsAllowButton());
-            } else if (processOption.equalsIgnoreCase("login")) {
+            } else if (DriverUtils.isIOS() && processOption.equalsIgnoreCase("login")) {
                 WebDriverWaitUtils.waitUntilElementIsVisible(tactNavigateTabBarPage.getTactMoreButton());
             }
             DriverUtils.sleep(2);
@@ -241,6 +251,13 @@ public class LoginSteps implements En {
                 //Connect Reminders
                 System.out.println("Reminders");
                 tactCalendarMainPage.getCalendarRemindersDoneButton().tap(tactNavigateTabBarPage.getTactCalendarButton());
+            } else {    //Android - Connect Calendars
+                System.out.println("Connect Calendars and Reminders");
+                tactCalendarMainPage.getConnectYourCalendarAndRemindersButton().tap(tactAlertsPopUpPage.getAlertsAllowButton());
+                tactAlertsPopUpPage.getAlertsAllowButton().tap();
+                DriverUtils.tapAndroidHardwareBackBtn();
+                WebDriverWaitUtils.waitUntilElementIsVisible(tactNavigateTabBarPage.getTactAndroidOldVMoreOptionsButton());
+                DriverUtils.sleep(2);
             }
         });
     }

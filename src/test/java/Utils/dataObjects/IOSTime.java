@@ -97,7 +97,7 @@ public class IOSTime {
         displayDate = new SimpleDateFormat("dd").format(date);
         displayYear = new SimpleDateFormat("yyyy").format(date);
 
-        return "current date " + displayMonth.showNum() + " " + displayDate + " " + displayYear;
+        return displayMonth.showNum() + "/" + displayDate + "/" + displayYear;
     }
 
     private static void convertTime(String expectTime){

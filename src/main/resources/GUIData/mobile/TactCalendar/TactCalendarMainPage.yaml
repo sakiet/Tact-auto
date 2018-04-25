@@ -16,12 +16,12 @@ elements:
     ios:
       US: "//XCUIElementTypeStaticText[@name='Connect your calendars & reminders?']"
     android:
-      US: ""
+      US: "//android.widget.TextView[@text='Connect your calendars?']"
   connectYourCalendarAndRemindersButton:
     ios:
       US: "//XCUIElementTypeButton[@name='Connect']"
     android:
-      US: "//android.widget.RelativeLayout/android.view.ViewGroup/android.widget.ImageButton"
+      US: "//android.widget.Button[@text='CONNECT']"
   connectCalendarTitleLabel:
     ios:
       US: "	//XCUIElementTypeOther[@name='Calendars']"

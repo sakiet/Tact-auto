@@ -1,5 +1,7 @@
 package Utils;
 
+import Utils.dataObjects.AndroidDate;
+import Utils.dataObjects.IOSTime;
 import Utils.dataObjects.Report;
 import Utils.dataObjects.STATUS;
 import com.google.gson.Gson;
@@ -10,11 +12,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import sun.reflect.CallerSensitive;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static Utils.dataObjects.STATUS.*;
 
@@ -48,19 +49,19 @@ public class GenerateReport {
 
         //Json
         List<Report.Feature> features = new ArrayList<Report.Feature>();
-//        Report.Feature feature = report.new Feature();
 
         //folder dir
         File folder = new File("target/report");
 
         File[] listOfFiles = folder.listFiles();
         System.out.println("number of files : " + listOfFiles.length);
+
         for (File f : listOfFiles){
             if (f.isFile()){
                 Report.Feature feature = report.new Feature();
-                System.out.println("*** File : " + f.getName());
+                System.out.println(" *** File : " + f.getName());
                 feature = readFeatureData(f.getPath(), pw, feature);
-                features.add(feature);
+                features = combineDupFeatureCases(features, feature);
             }
         }
 
@@ -93,13 +94,192 @@ public class GenerateReport {
 
         try {
             fileWriter.flush();
+            fileWriterTxt.flush();
             pw.close();
+            pwJSON.close();
             fileWriter.close();
+            fileWriterTxt.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
+
+
+    public static void generteHtml(){
+
+        String iosFileDir     = "target/iosReport.json";
+        String androidFileDir = "target/androidReport.json";
+        String tempFileDir = "src/test/java/Utils/dataObjects/tempReport.json";
+
+        //check whether the file exists or not, if not replace with temp.json file
+        if (!new File(iosFileDir).exists()) {
+            iosFileDir = tempFileDir;
+        }
+        if (!new File(androidFileDir).exists()){
+            androidFileDir = tempFileDir;
+        }
+
+        JSONParser parser = new JSONParser();
+        FileWriter fileWriterHTML = null;
+
+        try {
+            JSONObject iOSObj = (JSONObject)((JSONArray) parser.parse(new FileReader(iosFileDir))).get(0);
+            JSONObject androidObj = (JSONObject)((JSONArray) parser.parse(new FileReader(androidFileDir))).get(0);
+
+            Gson g = new Gson();
+            Report iOSReport = g.fromJson(iOSObj.toString(), Report.class);
+            Report androidReport = g.fromJson(androidObj.toString(), Report.class);
+
+            System.out.println("ios : " + iOSObj.toString().getClass());
+            System.out.println("and : " + iOSObj.toJSONString().getClass());
+
+            String report = "";
+
+            //html head
+            report += "<!DOCTYPE html> \n";
+            report += "<html> \n";
+            report += "<head> \n<meta charset=\"utf-8\"> \n<title>Report for two platforms</title>\n</head>\n";
+
+            //html body
+            report += "<body>\n";
+            //table
+            report += reportsToHtmlTable(iOSReport, androidReport);
+            //close html body
+            report += "</body>\n";
+            //close html
+            report += "</html>\n";
+
+            System.out.println("\nreport : \n" + report);
+
+            //html
+            File htmlFile = new File("target/report.html");
+            fileWriterHTML = new FileWriter(htmlFile);
+
+            PrintWriter pw = new PrintWriter(fileWriterHTML);
+            pw.println(report);
+
+
+            //close file
+            fileWriterHTML.flush();
+            pw.close();
+            fileWriterHTML.close();
+
+        } catch (FileNotFoundException e){
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static String reportsToHtmlTable(Report iosReport, Report android) {
+        List<Report.Feature> features = iosReport.getFeatures();
+
+        // maybe sort the features list here.
+
+        String html = "";
+        html += "<table style=\"width:100%\"> \n";
+        //table caption with currentDate
+        html += "<caption><h2>Report</h2>" + IOSTime.getCurrentDate() + "</caption> \n";
+        //table header
+        html += "<tr>";
+        html += "<th>Feature</th><th>Case</th>";
+        html += "<th>" + iosReport.getAppInfo() + "</th>";
+        html += "<th>" + android.getAppInfo() + "</th>";
+        html += "</tr> \n";
+
+        //table body
+        for (Report.Feature iosFeature : features) {
+            boolean bfirst = true;
+
+            List<Report.Feature> androidFeatures = android.getFeatures();
+            Report.Feature androidFeature = null;
+            for (Report.Feature tmpFeature : androidFeatures) {
+                if (tmpFeature.getFeatureName().equals(iosFeature.getFeatureName())) {
+                    androidFeature = tmpFeature;
+                }
+            }
+            html += featureToHtml(iosFeature, androidFeature);
+        }
+
+        //note
+        html += "<tr><th></th></tr> \n";
+        html += "<tr><th>note: \"/\" - Do not support</th></tr> \n";
+
+        //close the table
+        html += "</table> \n";
+
+        return html;
+    }
+
+    public static String featureToHtml(Report.Feature iosFeature, Report.Feature androidFeature) {
+
+        List<Report.Feature.Case> iosCases = iosFeature.getCases();
+        String html = "";
+
+        Map<String, Report.Feature.Result> androidReults = new HashMap<>();
+        if (androidFeature != null && androidFeature.getCases() != null) {
+            for (Report.Feature.Case androidCase : androidFeature.getCases()) {
+                androidReults.put(androidCase.getCaseName(), androidCase.getResult());
+            }
+        }
+
+        for (Report.Feature.Case iosCase : iosCases) {
+            String line = "<tr>";
+            // line += "<td>" + iosCase.getPriority() + "</td>";
+            line += "<td>" + iosFeature.getFeatureName() + "</td>";
+            line += "<td>" + iosCase.getCaseName() + "</td>";
+
+            if (iosCase.getResult() != null) {
+                if (iosCase.getResult().getStatus().equals(STATUS.passed)){
+                    line += "<td><font color=\"green\">" + STATUS.passed + "</font></td>";
+                } else if (iosCase.getResult().getStatus().equals(STATUS.failed)){
+                    line += "<td><font color=\"red\">" + STATUS.failed + "</font></td>";
+                } else {
+                    line += "<td><font color=\"blud\">" + STATUS.skiped + "</font></td>";
+                }
+//                line += "<td>" + iosCase.getResult().getStatus() + "</td>";
+            } else {
+                line += "<td>/</td>";
+            }
+
+            if (androidReults.containsKey(iosCase.getCaseName())) {
+                STATUS androidResult = androidReults.get(iosCase.getCaseName()).getStatus();
+                if (androidResult.equals(STATUS.passed)){
+                    line += "<td><font color=\"green\">" + STATUS.passed + "</font></td>";
+                } else if (androidResult.equals(STATUS.failed)){
+                    line += "<td><font color=\"red\">" + STATUS.failed + "</font></td>";
+                } else {
+                    line += "<td><font color=\"blue\">" + STATUS.skiped + "</font></td>";
+                }
+//                line += "<td>" + androidReults.get(iosCase.getCaseName()).getStatus() + "</td>";
+                androidReults.remove(iosCase.getCaseName());
+            } else {
+                line += "<td>/</td>";
+            }
+            line += "</tr> \n";
+            html += line ;
+        }
+
+
+        for (Map.Entry<String, Report.Feature.Result> entry : androidReults.entrySet()) {
+            String line = "<tr>";
+            // line += "<td>" + iosCase.getPriority() + "</td>";
+            line += "<td>" + iosFeature.getFeatureName() + "</td>";
+            line += "<td>" + entry.getKey() + "</td>";
+            line += "<td>/</td>";
+            line += "<td>" + entry.getValue().getStatus() + "</td>";
+            line += "</tr> \n";
+            html += line ;
+        }
+
+        return html;
+    }
+
 
     public static Report.Feature readFeatureData(String filePath, PrintWriter pw, Report.Feature feature){
         List<Report.Feature.Case> cases = new ArrayList<Report.Feature.Case>();
@@ -187,6 +367,36 @@ public class GenerateReport {
         return feature;
     }
 
+    public static List<Report.Feature> combineDupFeatureCases(List<Report.Feature> features, Report.Feature newFeature) {
+        if (features.size() == 0){
+            features.add(newFeature);
+        } else {
+            int holder = -1;
+            for (int i=0; i<features.size(); i++){
+                Report.Feature tempF = features.get(i);
+
+                //combineCases
+                if (tempF.getFeatureName().equals(newFeature.getFeatureName())){
+                    holder = i;
+                    List<Report.Feature.Case> tempFCases = tempF.getCases();
+                    List<Report.Feature.Case> newFCases = newFeature.getCases();
+                    List<Report.Feature.Case> combineCases = new ArrayList<>();
+                    combineCases.addAll(tempFCases);
+                    combineCases.addAll(newFCases);
+
+                    features.get(i).setCases(combineCases);
+                    break;
+                }
+            }
+            if (holder == -1 ){
+                features.add(newFeature);
+            } else {
+                holder = -1;
+            }
+        }
+        return features;
+    }
+
 
     public static void writeNewJsonReport(){
 
@@ -267,7 +477,16 @@ public class GenerateReport {
     }
 
     public static void main(String[] args){
-        writeNewReport();
+//        writeNewReport();
+        generteHtml();
+
+        File tmpDir = new File("dataObjects/tempReport.json");
+        boolean exists =  tmpDir.exists();
+        if (exists){
+            System.out.println("exists");
+        } else {
+            System.out.println("cannot find");
+        }
     }
 
 }

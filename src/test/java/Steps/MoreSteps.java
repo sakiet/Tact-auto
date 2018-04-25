@@ -60,12 +60,21 @@ public class MoreSteps implements En {
         And("^More: I delete current account from the app$", () -> {
             System.out.println("^More: I delete current account from the app$");
 
-            if ( DriverUtils.isIOS() ) {
-                tactSettingsPage.getIosAccountButton().tap(tactSettingsPage.getDeleteAccountButton());
-            }
             tactSettingsPage.getDeleteAccountButton().tap(tactAlertsPopUpPage.getTactDeleteButton());
             tactAlertsPopUpPage.getTactDeleteButton().tap();
             WebDriverWaitUtils.waitUntilElementIsVisible(tactWelcomePage.getWelcomeTactLabel());
+        });
+        Then("^More: I get App Version and \"([^\"]*)\" save in file$", (String isSave) -> {
+            System.out.println("^More: I get App Version and " + isSave + " save in file$");
+
+            WebDriverWaitUtils.waitUntilElementIsVisible(tactSettingsPage.getAppVersionLabel());
+            String appVersion = tactSettingsPage.getAppVersionLabel().getValue();
+            String appName = DriverUtils.getAppName();
+            String appFrom = DriverUtils.getAppFrom();
+
+            if (!DriverUtils.isTextEmpty(isSave)){
+                DriverUtils.writeToFile("target/osVersion.txt", DriverUtils.getCurrentMobileOSType() + " : " + appName + " - " + appVersion + " - " + appFrom);
+            }
         });
     }
 }
