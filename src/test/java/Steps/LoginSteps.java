@@ -132,11 +132,28 @@ public class LoginSteps implements En {
                 }
             }
         });
-        And("^Login-Webview: I click login button$", () -> {
-            System.out.println("^Login: I click login button$");
+        And("^Login-Webview: I click login button in \"([^\"]*)\" process$", (String processOption) -> {
+            System.out.println("^Login: I click login button in " + processOption + " process$");
 
             Button loginButton = new Button( sfLoginWebviewPage.getLoginButton().getLocator() );
             loginButton.click();
+
+            if (DriverUtils.isAndroid() ){// && processOption.equals("login")) {
+                DriverUtils.sleep(15);
+                System.out.println("to check whether syncing display or not");
+                if ( Grid.driver().findElementsByXPath(tactAccessSFPage.getTactSyncingLabel().getLocator()).size() == 0){
+                    DriverUtils.tapAndroidHardwareHomeBtn();
+                    System.out.println("click home btn");
+                    DriverUtils.sleep(5);
+                    DriverUtils.relaunchApp();
+                    System.out.println("relaunch app");
+                    WebDriverWaitUtils.waitUntilElementIsVisible(tactWelcomePage.getConnectWithSFButton());
+                    tactWelcomePage.getConnectWithSFButton().tap();
+
+                    WebDriverWaitUtils.waitUntilElementIsVisible(tactAccessSFPage.getTactSyncingLabel());
+                }
+            }
+
         });
         When("^Login-Webview: Login with existing user$", () -> {
             System.out.println("^Login: Login with existing user$");

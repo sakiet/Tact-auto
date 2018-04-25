@@ -72,11 +72,11 @@ elements:
       US: "//XCUIElementTypeButton[@name='Opportunities']"
     android:
       US: "//android.widget.CheckedTextView[@text='Opportunities']"
-  tactAndroidOldVSettingButton:
+  tactAndroidOldVSettingsButton:
     ios:
       US: ""
     android:
-      US: "//android.widget.CheckedTextView[@text='Settings']"
+      US: "//android.widget.TextView[@text='Settings']"
   tactAndroidOldVMoreOptionsButton:
     ios:
       US: ""

@@ -49,6 +49,7 @@ public class MoreSteps implements En {
             System.out.println("^More: I log out from the app$");
 
             if ( DriverUtils.isAndroid() ){
+                WebDriverWaitUtils.waitUntilElementIsVisible(tactSettingsPage.getAndroidMoreOptionButton());
                 tactSettingsPage.getAndroidMoreOptionButton().tap(tactSettingsPage.getLogOutButton());
                 tactSettingsPage.getLogOutButton().tap(tactAlertsPopUpPage.getAndroidPopUpSureConfirmOKButton());
                 tactAlertsPopUpPage.getAndroidPopUpSureConfirmOKButton().tap();
@@ -56,6 +57,11 @@ public class MoreSteps implements En {
                 tactSettingsPage.getLogOutButton().tap();
             }
             WebDriverWaitUtils.waitUntilElementIsVisible(tactWelcomePage.getConnectWithSFButton());
+
+            //clear data from chrome (android Only)
+            if (DriverUtils.isAndroid()){
+                DriverUtils.clearChromeData();
+            }
         });
         And("^More: I delete current account from the app$", () -> {
             System.out.println("^More: I delete current account from the app$");

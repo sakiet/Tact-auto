@@ -261,6 +261,18 @@ public class DriverUtils {
         sleep(5);
     }
 
+    //××××××××××//
+    // Android //
+    //××××××××××//
+    /**
+     * tap device HOME key button (Android Only)
+     */
+    public static void tapAndroidHardwareHomeBtn(){
+        String command = "adb shell input keyevent KEYCODE_HOME";
+        runCommand(command);
+        sleep(5);
+    }
+
     /**
      * run the android command without return value
      * @param command
@@ -278,6 +290,12 @@ public class DriverUtils {
         return process;
     }
 
+    //××××××××××//
+    // Android //
+    //××××××××××//
+    /**
+     * clear the chrome app data (Android Only)
+     */
     public static void clearChromeData(){
         String command = "adb shell pm clear com.android.chrome";
         String line = null;
@@ -322,6 +340,11 @@ public class DriverUtils {
         return date;
     }
 
+    /**
+     * get current Date info (year, month/mm, date, hours, mins)
+     * @param infor
+     * @return
+     */
     public static String currentDateInfo(String infor) {
         Date date = currentDate();
         String dateInfo = "";
@@ -358,6 +381,11 @@ public class DriverUtils {
         return dateInfo;
     }
 
+    /**
+     * write the data into fileDir
+     * @param file
+     * @param data
+     */
     public static void writeToFile(String file, String data){
         FileWriter fw = null;
         try {
@@ -379,6 +407,10 @@ public class DriverUtils {
         }
     }
 
+    /**
+     * get the appName from TestNG properties - app path
+     * @return String appName
+     */
     public static String getAppName() {
         Capabilities caps = Grid.driver().getCapabilities();
         Object o = caps.getCapability("app");
@@ -389,6 +421,10 @@ public class DriverUtils {
         return appName;
     }
 
+    /**
+     * get the app information from the testNG properties file
+     * @return String appCameFrom (iOS - app_store, local_build. Android - Play_store, local_build)
+     */
     public static String getAppFrom() {
         String appName = getAppName();
         if (isIOS() && getAppName().equals("Tact")) {
@@ -398,5 +434,16 @@ public class DriverUtils {
         } else {
             return "local_build";
         }
+    }
+
+    /**
+     * launch the App
+     */
+    public static void relaunchApp() {
+        ((AppiumDriver)Grid.driver()).launchApp();
+    }
+
+    public static void main(String[] args){
+        tapAndroidHardwareHomeBtn();
     }
 }
