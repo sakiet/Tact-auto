@@ -9,7 +9,7 @@ Feature: LoginFeature
     And Login-Webview: I "do not" send usage to google chrome and "do not" sign in Chrome
     And Login-Webview: I enter the user email address
     And Login-Webview: I "do not" check remember me
-    And Login-Webview: I click login button
+    And Login-Webview: I click login button in "login" process
     When Common: I switch to "Native_APP" driver
     And Login: Waiting for Syncing finished in "login" process
 

@@ -2,6 +2,11 @@ baseClass: "com.paypal.selion.testcomponents.BasicPageImpl"
 defaultLocale: "US"
 platform: "mobile"
 elements:
+  connectingToTactLabel:
+    ios:
+      US: ""
+    android:
+      US: "//android.widget.TextView[@text='Connecting to Tact']"
   addContactToTactTitleLabel:
     ios:
       US: "//XCUIElementTypeStaticText[@name='Add Contacts to Tact']"

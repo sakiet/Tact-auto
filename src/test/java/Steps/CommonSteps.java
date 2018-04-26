@@ -49,7 +49,7 @@ public class CommonSteps implements En {
             System.out.println("^I should see the userform page$");
         });
         And("^Common: I switch to \"([^\"]*)\" driver$", (String driverContext) -> {
-            System.out.println("^Common: I switch to \"([^\"]*)\" driver$");
+            System.out.println("^Common: I switch to " + driverContext + " driver$");
 
             if (driverContext.equalsIgnoreCase("Webview") && DriverUtils.isIOS() ){
                 System.out.println("-> convert To Webview driver <-");
@@ -64,8 +64,18 @@ public class CommonSteps implements En {
 
             DriverUtils.sleep(2);
 
-            //Syncing data to your phone Page
-            if ( Grid.driver().findElementsByXPath(tactNavigateTabBarPage.getTactMoreButton().getLocator()).size() == 0 &&
+            if (Grid.driver().findElementsByXPath(tactAccessSFPage.getTactSyncingLabel().getLocator()).size()!=0){
+                System.out.println("Start waiting for \"Syncing ...\"");
+                WebDriverWaitUtils.waitUntilElementIsInvisible(tactAccessSFPage.getTactSyncingLabel());
+                System.out.println("\"Syncing...\" finished");
+                DriverUtils.sleep(2);
+            } else {
+                System.out.println("No \"Syncing...\"");
+            }
+
+            //Syncing data to your phone Page - iOS only
+            if (    DriverUtils.isIOS() &&
+                    Grid.driver().findElementsByXPath(tactNavigateTabBarPage.getTactMoreButton().getLocator()).size() == 0 &&
                     Grid.driver().findElementsByXPath(tactAccessSFPage.getTactSyncingDataToPhoneTitleLabel().getLocator()).size()!=0) {
                 System.out.println("Start waiting for \"Syncing data to your phone.\"");
                 WebDriverWaitUtils.waitUntilElementIsInvisible(tactAccessSFPage.getTactSyncingDataToPhoneTitleLabel());
@@ -95,9 +105,17 @@ public class CommonSteps implements En {
                  tabBarOption.equalsIgnoreCase("Notebook") ||
                  tabBarOption.equalsIgnoreCase("Notifications") ||
                  tabBarOption.equalsIgnoreCase("Settings")) {
-                WebDriverWaitUtils.waitUntilElementIsVisible(tactNavigateTabBarPage.getTactMoreButton());
-                tactNavigateTabBarPage.getTactMoreButton().tap(tactNavigateTabBarPage.getTactMoreTitleLabel());
-                System.out.println("after click more button");
+                if (DriverUtils.isIOS()) {
+                    WebDriverWaitUtils.waitUntilElementIsVisible(tactNavigateTabBarPage.getTactMoreButton());
+                    tactNavigateTabBarPage.getTactMoreButton().tap(tactNavigateTabBarPage.getTactMoreTitleLabel());
+                    System.out.println("after click more button in iOS");
+                } else {    //old android version
+                    WebDriverWaitUtils.waitUntilElementIsVisible(tactNavigateTabBarPage.getTactAndroidOldVMoreOptionsButton());
+                    tactNavigateTabBarPage.getTactAndroidOldVMoreOptionsButton().tap(tactNavigateTabBarPage.getTactAndroidOldVSettingsButton());
+                    tactNavigateTabBarPage.getTactAndroidOldVSettingsButton().tap();
+                    System.out.println("after click more button in Android");
+                }
+
                 if (resyncPopUp() ) {
                     System.out.println("after resync pop up done");
                     DriverUtils.sleep(2);
@@ -158,9 +176,11 @@ public class CommonSteps implements En {
                     break;
                 case "Settings":
                     System.out.println("Goes to Settings Page");
-                    WebDriverWaitUtils.waitUntilElementIsVisible(tactNavigateTabBarPage.getSettingsButton());
-                    System.out.println("finding the setting button");
-                    tactNavigateTabBarPage.getSettingsButton().tap();
+                    if (DriverUtils.isIOS()) {
+                        WebDriverWaitUtils.waitUntilElementIsVisible(tactNavigateTabBarPage.getSettingsButton());
+                        System.out.println("finding the setting button");
+                        tactNavigateTabBarPage.getSettingsButton().tap();
+                    }
                     System.out.println("after click setting button");
                     break;
                 default:

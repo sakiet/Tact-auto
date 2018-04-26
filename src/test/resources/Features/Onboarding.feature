@@ -8,7 +8,7 @@ Feature: OnboardingFeature
       | UserName | automation.tactSF@gmail.com   |
       | Password | Tact0218                      |
     And Login-Webview: I "do not" check remember me
-    And Login-Webview: I click login button
+    And Login-Webview: I click login button in "onboarding" process
     When Login-Webview: Login with existing user
 #   There is step for the 1st time using SF login TactApp
     Then Login: Allow Tact to access the local Contact
@@ -23,7 +23,7 @@ Feature: OnboardingFeature
     And Login-Webview: I "do not" send usage to google chrome and "do not" sign in Chrome
     And Login-Webview: I enter the user email address
     And Login-Webview: I "do not" check remember me
-    And Login-Webview: I click login button
+    And Login-Webview: I click login button in "onboarding" process
     When Common: I switch to "Native_APP" driver
     Then Login: Allow Tact to access salesforce user data
     Then Login: After SF connected, then Add Contacts to Tact

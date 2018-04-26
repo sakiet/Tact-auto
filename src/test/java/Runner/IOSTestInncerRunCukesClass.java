@@ -110,7 +110,7 @@ public class IOSTestInncerRunCukesClass {
             ,glue = ("Steps")
 //        , tags={"@smoke,@P0"} "@note,@SFTask,@Event"
 //        ,tags={"@Task,@Log,@Event"}
-            ,tags={"@Log"}
+            ,tags={"@createContact,@P1"}
             , format = {
                 "pretty",
                 "html:target/report/cucumber-pretty-TactContactsFeatureRunCukesNoReset",

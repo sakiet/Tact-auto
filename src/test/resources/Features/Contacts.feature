@@ -1,7 +1,7 @@
 Feature: ContactsFeature
   This feature deals with the Contacts functionality of the applicaiton
 
-  @P1
+  @P0
   @createContact
   Scenario Outline: Create a new contact in TactAPP with basic information and w/o save in iphone and SF
     When Common: I switch to "Contacts" page from tab bar
@@ -11,11 +11,11 @@ Feature: ContactsFeature
 
     Examples:
     | saveToIphone | sendToSF | contactName             | isSave |
-#    | don't        | don't    | DemoLName, DemoFName    | w/o    |
-    | do           | do       | contactName2            | no     |
+    | don't        | don't    | DemoLName, DemoFName    | yes    |
+#    | do           | do       | contactName2            | no     |
 #    | don't        | don't    | FirstN,LastN            | yes    |
 
-  @P1
+  @P0
   @createLead
   Scenario Outline: Create a new contact in TactAPP with basic information and w/o save in iphone and SF
     When Common: I switch to "Contacts" page from tab bar
@@ -26,7 +26,7 @@ Feature: ContactsFeature
     Examples:
       | saveToIphone | sendToSF | contactName             | isSave |
   #    | don't        | don't    | DemoLName, DemoFName    | w/o    |
-      | do           | do       | contactName2            | no     |
+      | do           | do       | contactName2            | yes     |
 #    | don't        | don't    | FirstN,LastN            | yes    |
 
   @P1

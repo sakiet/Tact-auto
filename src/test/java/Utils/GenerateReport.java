@@ -109,7 +109,8 @@ public class GenerateReport {
     public static void generteHtml(){
 
         String iosFileDir     = "target/iosReport.json";
-        String androidFileDir = "target/androidReport.json";
+//        String androidFileDir = "target/androidReport.json";
+        String androidFileDir = "target/abd";
         String tempFileDir = "src/test/java/Utils/dataObjects/tempReport.json";
 
         //check whether the file exists or not, if not replace with temp.json file
@@ -118,6 +119,8 @@ public class GenerateReport {
         }
         if (!new File(androidFileDir).exists()){
             androidFileDir = tempFileDir;
+        } else {
+            System.out.println("exist");
         }
 
         JSONParser parser = new JSONParser();
