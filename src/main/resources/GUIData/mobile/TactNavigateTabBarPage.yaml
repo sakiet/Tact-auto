@@ -2,6 +2,11 @@ baseClass: "com.paypal.selion.testcomponents.BasicPageImpl"
 defaultLocale: "US"
 platform: "mobile"
 elements:
+  tactAssistantButton:
+    ios:
+      US: "//XCUIElementTypeButton[@name='Assistant']"
+    android:
+      US: ""
   tactEmailButton:
     ios:
       US: "//XCUIElementTypeButton[@name='Email']"

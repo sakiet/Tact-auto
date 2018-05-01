@@ -15,20 +15,6 @@ Feature: ContactsFeature
 #    | do           | do       | contactName2            | no     |
 #    | don't        | don't    | FirstN,LastN            | yes    |
 
-  @P0
-  @createLead
-  Scenario Outline: Create a new contact in TactAPP with basic information and w/o save in iphone and SF
-    When Common: I switch to "Contacts" page from tab bar
-    Then Contacts: I go to create a new "Lead" page
-#    When AddContact: I "<saveToIphone>" save to Phone and "<sendToSF>" send to Salesforce
-#    And AddContact: I input a user name "<contactName>" and "<isSave>"
-
-    Examples:
-      | saveToIphone | sendToSF | contactName             | isSave |
-  #    | don't        | don't    | DemoLName, DemoFName    | w/o    |
-      | do           | do       | contactName2            | yes     |
-#    | don't        | don't    | FirstN,LastN            | yes    |
-
   @P1
   @note
   Scenario Outline: Add Note to a contact

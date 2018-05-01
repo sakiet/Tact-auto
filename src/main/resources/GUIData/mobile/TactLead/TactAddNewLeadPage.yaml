@@ -37,6 +37,41 @@ elements:
       US: "//XCUIElementTypeSwitch[@name='Send to Salesforce']"
     android:
       US: "//*[contains(@text, 'Send to Salesforce')]"
+  lastNameTextField:
+    ios:
+      US: "//XCUIElementTypeStaticText[@name='Last Name']"
+    android:
+      US: ""
+  companyTextField:
+    ios:
+      US: "//XCUIElementTypeStaticText[@name='Company']"
+    android:
+      US: ""
+  ownerButton:
+    ios:
+      US: "//XCUIElementTypeStaticText[@name='Owner']"
+    android:
+      US: ""
+  salutationButton:
+    ios:
+      US: "//XCUIElementTypeStaticText[@name='Salutation']"
+    android:
+      US: ""
+  firstNameTextField:
+    ios:
+      US: "//XCUIElementTypeStaticText[@name='First Name']"
+    android:
+      US: ""
+  titleTextField:
+    ios:
+      US: "//XCUIElementTypeStaticText[@name='Title']"
+    android:
+      US: ""
+  leadSourceButton:
+    ios:
+      US: "//XCUIElementTypeStaticText[@name='Lead Source']"
+    android:
+      US: ""
 pageTitle:
   US: "page_object"
 pageValidators: [

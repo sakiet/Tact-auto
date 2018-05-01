@@ -2,16 +2,6 @@ baseClass: "com.paypal.selion.testcomponents.BasicPageImpl"
 defaultLocale: "US"
 platform: "mobile"
 elements:
-  calendarEarlierBeforeButton:
-    ios:
-      US: "//XCUIElementTypeStaticText[@name='Earlier']"
-    android:
-      US: ""
-  calendarLaterAfterButton:
-    ios:
-      US: "//XCUIElementTypeStaticText[@name='Later']"
-    android:
-      US: ""
   connectCalendarAndReindersLabel:
     ios:
       US: "//XCUIElementTypeStaticText[@name='Connect your calendars & reminders?']"
@@ -24,7 +14,7 @@ elements:
       US: "//android.widget.Button[@text='CONNECT']"
   connectCalendarTitleLabel:
     ios:
-      US: "	//XCUIElementTypeOther[@name='Calendars']"
+      US: "//XCUIElementTypeOther[@name='Calendars']"
     android:
       US: ""
   connectRemindersTitleLabel:
@@ -37,8 +27,29 @@ elements:
       US: "//XCUIElementTypeButton[@name='Done']"
     android:
       US: ""
+  calendarAddPlusButton:
+    ios:
+      US: "//XCUIElementTypeButton[@name='Add']"
+    android:
+      US: ""
+  calendarTitleLabel:
+    ios:
+      US: "//XCUIElementTypeOther[@name='Month']"
+    android:
+      US: ""
+  calendarEarlierBeforeButton:
+    ios:
+      US: "//XCUIElementTypeStaticText[@name='Earlier']"
+    android:
+      US: ""
+  calendarLaterAfterButton:
+    ios:
+      US: "//XCUIElementTypeStaticText[@name='Later']"
+    android:
+      US: ""
 pageTitle:
   US: "page_object"
 pageValidators: [
-  tactContactsTitleLabel
+  calendarEarlierBeforeButton,
+  calendarLaterAfterButton
 ]

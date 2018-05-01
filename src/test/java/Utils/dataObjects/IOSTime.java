@@ -33,11 +33,17 @@ public class IOSTime {
 
     public IOSTime(){}
 
+    //select date and time
     public static void changeDateAndTime (String date, String expectTime){
         WebDriverWaitUtils.waitUntilElementIsVisible(iOSDateTimePage.getDateTimeDoneLabel());
 
         displayDayMonth();
-        convertDayMonth(date);
+
+        if (date.equalsIgnoreCase("today")){
+            getCurrentDayMonth();
+        } else {
+            convertDayMonth(date);
+        }
         convertTime(expectTime);
 
         List<WebElement> allElements = Grid.driver().findElementsByClassName(iOSDateTimePage.getDateTimePicker().getLocator());
@@ -68,6 +74,48 @@ public class IOSTime {
         allElements.get(3).sendKeys(expectIsAMPM.toString());
 
         System.out.println(expectDayMonth + " " + expectHours + " " + expectMins + " " + expectIsAMPM );
+
+        iOSDateTimePage.getDateTimeDoneButton().tap();
+    }
+
+    public static void changeDate (String date){
+        WebDriverWaitUtils.waitUntilElementIsVisible(iOSDateTimePage.getDateTimeDoneLabel());
+
+        displayDayMonth();
+        if (date.equalsIgnoreCase("today")){
+            getCurrentDayMonth();
+        } else {
+            convertDayMonth(date);
+        }
+
+        List<WebElement> allElements = Grid.driver().findElementsByClassName(iOSDateTimePage.getDateTimePicker().getLocator());
+        //select day and month
+        int loop = expectMonth.showNum() - displayMonth.showNum();
+        System.out.println("loop " + loop);
+        String sendKey;
+        int month = displayMonth.showNum();
+        //select month
+        if ( loop > 0 ){
+            while ( loop != 0 ) {
+                sendKey = getMonthForInt(month);
+                System.out.println("send key " + sendKey);
+                allElements.get(1).sendKeys(sendKey);
+                month++;
+                loop--;
+            }
+        }
+        if ( loop < 0 ){
+            while ( loop!=0 ) {
+                sendKey = getMonthForInt(month).substring(0, 3) + " " + 1;
+                allElements.get(1).sendKeys(sendKey);
+                month--;
+                loop++;
+            }
+        }
+        allElements.get(0).sendKeys(expectDay);
+        System.out.println("expectDay : " + expectDay + " ==== expectMonth : " + expectMonth );
+
+        System.out.println(expectDayMonth );
 
         iOSDateTimePage.getDateTimeDoneButton().tap();
     }
@@ -118,10 +166,21 @@ public class IOSTime {
             displayDate = DriverUtils.currentDateInfo("date");
             displayMonth = Month.valueOf(DriverUtils.currentDateInfo("month"));
 
-        }else {
+        }else if (date.contains(",")){  //xx mmm dd, hh
             displayDayMonth = date.split(", ")[1];
             displayMonth = Month.valueOf(displayDayMonth.split(" ")[0]);
             displayDate = displayDayMonth.split(" ")[1];
+
+            System.out.println(displayDate + "/" + displayMonth);
+        } else {
+            displayDate = date.split(" ")[1];   //xxx dd
+            String month = allElements.get(1).getText();
+            System.out.println("display month " + month);
+            displayMonth = Month.valueOf(month.substring(0,3));
+
+            displayYear = allElements.get(2).getText();
+
+            System.out.println(displayDate + "/" + displayMonth + "/" + displayYear);
         }
     }
 
@@ -139,6 +198,14 @@ public class IOSTime {
             expectYear = date.split(", ")[1];
         }
         System.out.println("expect date " + expectMonth +  " " + expectDay + " " + expectYear);
+    }
+
+    private static void getCurrentDayMonth(){
+        Date date = DriverUtils.currentDate();
+
+        expectYear = new SimpleDateFormat("yyyy").format(date);
+        expectDay = new SimpleDateFormat("dd").format(date);
+        expectMonth = Month.valueOf(new SimpleDateFormat("MMM").format(date));
     }
 
     private static String getMonthForInt(int num) {

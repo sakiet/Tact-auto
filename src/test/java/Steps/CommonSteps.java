@@ -137,6 +137,7 @@ public class CommonSteps implements En {
                     WebDriverWaitUtils.waitUntilElementIsVisible(tactNavigateTabBarPage.getTactEmailButton());
                     tactNavigateTabBarPage.getTactEmailButton().tap();
                     resyncPopUp();
+//                    WebDriverWaitUtils.waitUntilElementIsVisible(tactNavigateTabBarPage.getTactEmailButton());
                     if ( Grid.driver().findElementsByXPath(tactMailBoxesPage.getMailBoxesTitleLabel().getLocator()).size() == 0 ) {
                         tactMailBoxesPage.getBackToMailBoxesButton().tap();
                         WebDriverWaitUtils.waitUntilElementIsVisible(tactMailBoxesPage.getMailBoxesTitleLabel());
@@ -221,6 +222,7 @@ public class CommonSteps implements En {
 //            WebDriverWaitUtils.waitUntilElementIsInvisible(tactAccessSFPage.getTactSyncingDataToPhoneTitleLabel());
             WebDriverWaitUtils.waitUntilElementIsInvisible(tactAccessSFPage.getTactSyncingItemsLabel());
             System.out.println("\"Tact need to resync\" finished");
+            WebDriverWaitUtils.waitUntilElementIsVisible(tactNavigateTabBarPage.getTactMoreButton());
             return true;
         } else {
             System.out.println("No \"Tact need to resync\"");

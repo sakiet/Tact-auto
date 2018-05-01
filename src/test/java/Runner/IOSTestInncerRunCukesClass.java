@@ -138,7 +138,7 @@ public class IOSTestInncerRunCukesClass {
     public class TactDataSourcesFeatureRunCukesNoReset extends AbstractTestNGCucumberTests {
         @Test
         private void test(){
-            System.out.println("@Test Contacts Feature RunCukesTest");
+            System.out.println("@Tact DataSources Feature RunCukesNoReset");
         }
 
     }
@@ -176,6 +176,23 @@ public class IOSTestInncerRunCukesClass {
         private void test(){
             System.out.println("@Test Contacts Feature RunCukesTest");
         }
+
+    }
+
+    //Calendar
+    //Event
+    @CucumberOptions(
+            features = ("src/test/resources/Features/Calendar.feature")
+            ,glue = ("Steps")
+            ,tags={"@Event"}
+            , format = {
+            "pretty",
+            "html:target/report/cucumber-pretty-TactLeadFeatureRunCukesNoReset",
+            "json:target/report/TactLeadFeatureRunCukesNoReset.json"}
+    )
+    public class TactCalendarFeatureRunCukesNoReset extends AbstractTestNGCucumberTests {
+        @Test
+        private void test(){ System.out.println("@Tact Calendar Feature RunCukesNoReset"); }
 
     }
 }

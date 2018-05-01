@@ -121,6 +121,26 @@ public class IOSTactSanityTesting extends CustomPicoContainer {
         testNGCucumberRunner.runCukes();
     }
 
+    //Calendar
+    @MobileTest(    //iOS
+            locale = "US",
+            additionalCapabilities = {
+                    "unicodeKeyboard:true","resetKeyboard:true",
+                    "noReset:true",    //continue the testing. false, reinstall the app; false, continue use the app
+                    "fullReset:false"  //restart the iPhone/simulator and install the app
+            }
+    )
+    @Test(groups = "Tact-Sanity", description = "TactDataSourcesTest", dataProvider = "yamlDataProvider", dependsOnMethods = "TactOnboardingFeature")
+    void TactCalendarFeature(UserInfor userInfor) throws InterruptedException {
+        CustomPicoContainer.userInfor = userInfor;
+        System.out.println("TestRunner - Test - feature");
+        System.out.println("Grid.driver().getCapabilities() ==> " + Grid.driver().getCapabilities() + "\n");
+
+        //Contact
+        testNGCucumberRunner = new TestNGCucumberRunner(IOSTestInncerRunCukesClass.TactCalendarFeatureRunCukesNoReset.class);
+        testNGCucumberRunner.runCukes();
+    }
+
     //Contact
     @MobileTest(    //iOS
             locale = "US",
@@ -163,6 +183,7 @@ public class IOSTactSanityTesting extends CustomPicoContainer {
 //        testNGCucumberRunner.finish();
     }
 
+    //getAppVersion
     @MobileTest(  //iOS
             locale = "US",
             additionalCapabilities = {

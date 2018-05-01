@@ -8,6 +8,7 @@ import com.paypal.selion.internal.platform.grid.WebDriverPlatform;
 import com.paypal.selion.platform.grid.Grid;
 import com.paypal.selion.platform.html.Button;
 import com.paypal.selion.platform.html.CheckBox;
+import com.paypal.selion.platform.html.Label;
 import com.paypal.selion.platform.html.TextField;
 import com.paypal.selion.platform.utilities.WebDriverWaitUtils;
 import com.paypal.selion.testcomponents.mobile.*;

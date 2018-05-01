@@ -13,6 +13,8 @@ import com.paypal.selion.testcomponents.mobile.TactAlertsPopUpPage;
 import com.paypal.selion.testcomponents.mobile.TactContact.TactContactObjPage;
 import com.paypal.selion.testcomponents.mobile.TactContact.TactContactsMainPage;
 import com.paypal.selion.testcomponents.mobile.TactEvent.TactEventPage;
+import com.paypal.selion.testcomponents.mobile.TactEvent.TactSFDetailsEventPage;
+import com.paypal.selion.testcomponents.mobile.TactEvent.TactSelectOptionPage;
 import com.paypal.selion.testcomponents.mobile.TactLog.TactLogPage;
 import com.paypal.selion.testcomponents.mobile.TactNote.TactNotePage;
 import com.paypal.selion.testcomponents.mobile.TactPinPage;
@@ -36,6 +38,8 @@ public class TactPinSteps implements En {
     private TactLogPage tactLogPage;
     private TactEventPage tactEventPage;
     private TactAlertsPopUpPage tactAlertsPopUpPage;
+    private TactSFDetailsEventPage tactSFDetailsEventPage;
+    private TactSelectOptionPage tactSelectOptionPage;
 
     public TactPinSteps() {
 
@@ -47,6 +51,8 @@ public class TactPinSteps implements En {
         tactLogPage = new TactLogPage();
         tactEventPage = new TactEventPage();
         tactAlertsPopUpPage = new TactAlertsPopUpPage();
+        tactSFDetailsEventPage = new TactSFDetailsEventPage();
+        tactSelectOptionPage = new TactSelectOptionPage();
 
         And("^Tact-Pin: I see a Tact pin icon display$", () -> {
             System.out.println("^Tact-Pin: I see a Tact pin icon display$");
@@ -358,7 +364,29 @@ public class TactPinSteps implements En {
             }
             //attendees
             if (!DriverUtils.isTextEmpty(attendees)) {
-                System.out.println("Do not implement yet");
+                tactSFDetailsEventPage.getSfAttendeesButton().tap(tactSelectOptionPage.getAttendeesTitleLabel());
+
+
+                //search the name from search field
+                tactContactsMainPage.getSearchAllContactsTextField().setText(attendees);
+
+                //get the name location, and click it
+                if (attendees.contains(",") && !attendees.contains(", ")) { //Testing,fname
+                    attendees = attendees.split(",")[1] + " " + attendees.split(",")[0];
+                } else if (attendees.contains(", ")) {
+                    attendees = attendees.split(", ")[1] + " " + attendees.split(", ")[0];
+                }
+
+                System.out.println("attendees :" + attendees);
+                String nameLoc = tactContactsMainPage.getNameEditButton().getLocator().replace("contactName", attendees);
+                System.out.println("loc is ==> " + nameLoc);
+                DriverUtils.sleep(1);
+
+                Grid.driver().findElementByXPath(nameLoc).click();
+
+                //go back to SF details page
+                tactSelectOptionPage.getIocBackToSalesforceDetailsPageButton().tap(tactSFDetailsEventPage.getIosSFDetailsTitleLabel());
+
             }
             //assignedTo
             if (!DriverUtils.isTextEmpty(assignedTo)) {
@@ -393,6 +421,20 @@ public class TactPinSteps implements En {
                             tactEventPage.getAllDaySwitch().getValue().equals("OFF") ) ){
                 System.out.println("SF : " + tactEventPage.getAllDaySwitch().getValue());
                 tactEventPage.getAllDaySwitch().changeValue();
+
+                if ( !DriverUtils.isTextEmpty(startDate) ){
+                    tactEventPage.getStartsButton().tap();
+                    IOSTime.changeDate(startDate);
+                }
+
+                if ( !DriverUtils.isTextEmpty(endDate) ){
+                    tactEventPage.getEndsButton().tap();
+                    IOSTime.changeDate(endDate);
+                }
+
+                //
+                System.out.println("After change the time");
+
             } else if ( isAllDayEvent.equalsIgnoreCase("false") ) {
                 if ( tactEventPage.getAllDaySwitch().getValue().equals("1") ||
                         tactEventPage.getAllDaySwitch().getValue().equals("ON") ) {
@@ -423,6 +465,8 @@ public class TactPinSteps implements En {
                     WebDriverWaitUtils.waitUntilElementIsVisible(tactEventPage.getNewEventTitleLabel());
                 }
 
+                //
+                System.out.println("After change the time");
             }
 
             //startDate
