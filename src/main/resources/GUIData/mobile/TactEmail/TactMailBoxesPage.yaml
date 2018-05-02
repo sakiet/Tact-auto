@@ -10,6 +10,8 @@ elements:
   connectExchnageIconImage:
     ios:
       US: "//XCUIElementTypeImage[@name='connect-exchange-logo']"
+    android:
+      US: ""
   exchangeGmailConnectButton:
     ios:
       US: "//XCUIElementTypeButton[@name='Connect']"

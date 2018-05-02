@@ -50,7 +50,7 @@ Feature: ContactsFeature
   @SFTask
   Scenario Outline: Add SFTask to a contact
     When Common: I switch to "Contacts" page from tab bar
-    Then Contacts: I search one user "FirstN,LastN" from contacts list and select it
+    Then Contacts: I search one user "LastN, FirstN" from contacts list and select it
     And Tact-Pin: I see a Tact pin icon display
     When Tact-Pin: I click Tact pin icon and select "Task" option
     Then Tact-Pin: I create a new task with "<titleText>" title, "<description>" description, "<Name>" name and "<relatedTo>" related to,  "<isFollowUp>" followup-iOS and "<isReminder>" reminder-iOS
@@ -66,7 +66,7 @@ Feature: ContactsFeature
   @Log
   Scenario Outline: Add Log to a contact
     When Common: I switch to "Contacts" page from tab bar
-    Then Contacts: I search one user "FirstN,LastN" from contacts list and select it
+    Then Contacts: I search one user "LastN, FirstN" from contacts list and select it
     And Tact-Pin: I see a Tact pin icon display
     When Tact-Pin: I click Tact pin icon and select "Log" option
     Then Tact-Pin: I create a new log with "<subjectOption>" with "<subject>" subject, "<Name>" name, "<relatedTo>" related to, "<dueDate>" due Date, "<Comments>" comments, "<priorityOption>" priority and "<statusOption>" status
@@ -81,7 +81,7 @@ Feature: ContactsFeature
   @Event
     Scenario Outline: Add Event to a contact
     When Common: I switch to "Contacts" page from tab bar
-    Then Contacts: I search one user "FirstN,LastN" from contacts list and select it
+    Then Contacts: I search one user "FirstN LastN" from contacts list and select it
     And Tact-Pin: I see a Tact pin icon display
     When Tact-Pin: I click Tact pin icon and select "Event" option
     Then Tact-Pin: I create a new event with "<subjectOption>" with "<subject>" subject, "<isAllDayEvent>" all-day event with "<startDate>" starts date at "<fromTime>" from time and "<endDate>" ends date at "<toTime>" to time, "<location>" location and "<description>" description

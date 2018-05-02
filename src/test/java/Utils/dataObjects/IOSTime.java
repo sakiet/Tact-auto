@@ -74,8 +74,10 @@ public class IOSTime {
         allElements.get(3).sendKeys(expectIsAMPM.toString());
 
         System.out.println(expectDayMonth + " " + expectHours + " " + expectMins + " " + expectIsAMPM );
+        DriverUtils.sleep(2);
 
-        iOSDateTimePage.getDateTimeDoneButton().tap();
+        WebDriverWaitUtils.waitUntilElementIsVisible(iOSDateTimePage.getDateTimeDoneButton());
+        Grid.driver().findElementByXPath(iOSDateTimePage.getDateTimeDoneButton().getLocator()).click();
     }
 
     public static void changeDate (String date){
@@ -114,9 +116,11 @@ public class IOSTime {
         }
         allElements.get(0).sendKeys(expectDay);
         System.out.println("expectDay : " + expectDay + " ==== expectMonth : " + expectMonth );
+        DriverUtils.sleep(2);
 
         System.out.println(expectDayMonth );
 
+        WebDriverWaitUtils.waitUntilElementIsVisible(iOSDateTimePage.getDateTimeDoneButton());
         iOSDateTimePage.getDateTimeDoneButton().tap();
     }
 

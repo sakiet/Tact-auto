@@ -67,7 +67,7 @@ public class IOSTactSanityTesting extends CustomPicoContainer {
                     "fullReset:false"  //restart the iPhone/simulator and install the app
             }
     )
-    @Test(groups = "Tact-Sanity", description = "TactDataSourcesTest", dataProvider = "yamlDataProvider", dependsOnMethods = "TactGetAppVersion")
+    @Test(groups = "Tact-Sanity", description = "Add emails in Tacts", dataProvider = "yamlDataProvider", dependsOnMethods = "TactGetAppVersion")
     void TactAddEmailFeature(UserInfor userInfor) throws InterruptedException {
         CustomPicoContainer.userInfor = userInfor;
         System.out.println("TestRunner - Test - feature");
@@ -87,7 +87,7 @@ public class IOSTactSanityTesting extends CustomPicoContainer {
                     "fullReset:false"  //restart the iPhone/simulator and install the app
             }
     )
-    @Test(groups = "Tact-Sanity", description = "TactDataSourcesTest", dataProvider = "yamlDataProvider", dependsOnMethods = "TactAddEmailFeature")
+    @Test(groups = "Tact-Sanity", description = "After add emails, then re_auth exchange", dataProvider = "yamlDataProvider", dependsOnMethods = "TactAddEmailFeature")
     void TactBeReauthExchangeFeature(UserInfor userInfor) throws InterruptedException {
         CustomPicoContainer.userInfor = userInfor;
         System.out.println("TestRunner - Test - feature");
@@ -110,7 +110,7 @@ public class IOSTactSanityTesting extends CustomPicoContainer {
                     "fullReset:false"  //restart the iPhone/simulator and install the app
             }
     )
-    @Test(groups = "Tact-Sanity", description = "TactDataSourcesTest", dataProvider = "yamlDataProvider", dependsOnMethods = "TactBeReauthExchangeFeature")
+    @Test(groups = "Tact-Sanity", description = "Send emails and verify in Tact", dataProvider = "yamlDataProvider", dependsOnMethods = "TactBeReauthExchangeFeature")
     void TactSendEmailFeature(UserInfor userInfor) throws InterruptedException {
         CustomPicoContainer.userInfor = userInfor;
         System.out.println("TestRunner - Test - feature");
@@ -118,26 +118,6 @@ public class IOSTactSanityTesting extends CustomPicoContainer {
 
         //SendEmail
         testNGCucumberRunner = new TestNGCucumberRunner(IOSTestInncerRunCukesClass.SendEmailFeatureRunCukesNoReset.class);
-        testNGCucumberRunner.runCukes();
-    }
-
-    //Calendar
-    @MobileTest(    //iOS
-            locale = "US",
-            additionalCapabilities = {
-                    "unicodeKeyboard:true","resetKeyboard:true",
-                    "noReset:true",    //continue the testing. false, reinstall the app; false, continue use the app
-                    "fullReset:false"  //restart the iPhone/simulator and install the app
-            }
-    )
-    @Test(groups = "Tact-Sanity", description = "TactDataSourcesTest", dataProvider = "yamlDataProvider", dependsOnMethods = "TactOnboardingFeature")
-    void TactCalendarFeature(UserInfor userInfor) throws InterruptedException {
-        CustomPicoContainer.userInfor = userInfor;
-        System.out.println("TestRunner - Test - feature");
-        System.out.println("Grid.driver().getCapabilities() ==> " + Grid.driver().getCapabilities() + "\n");
-
-        //Contact
-        testNGCucumberRunner = new TestNGCucumberRunner(IOSTestInncerRunCukesClass.TactCalendarFeatureRunCukesNoReset.class);
         testNGCucumberRunner.runCukes();
     }
 
@@ -150,7 +130,7 @@ public class IOSTactSanityTesting extends CustomPicoContainer {
                     "fullReset:false"  //restart the iPhone/simulator and install the app
             }
     )
-    @Test(groups = "Tact-Sanity", description = "TactDataSourcesTest", dataProvider = "yamlDataProvider", dependsOnMethods = "TactOnboardingFeature")
+    @Test(groups = "Tact-Sanity", description = "Contact object", dataProvider = "yamlDataProvider", dependsOnMethods = "TactOnboardingFeature")
     void TactContactsFeature(UserInfor userInfor) throws InterruptedException {
         CustomPicoContainer.userInfor = userInfor;
         System.out.println("TestRunner - Test - feature");
@@ -158,6 +138,26 @@ public class IOSTactSanityTesting extends CustomPicoContainer {
 
         //Contact
         testNGCucumberRunner = new TestNGCucumberRunner(IOSTestInncerRunCukesClass.TactContactsFeatureRunCukesNoReset.class);
+        testNGCucumberRunner.runCukes();
+    }
+
+    //Calendar
+    @MobileTest(    //iOS
+            locale = "US",
+            additionalCapabilities = {
+                    "unicodeKeyboard:true","resetKeyboard:true",
+                    "noReset:true",    //continue the testing. false, reinstall the app; false, continue use the app
+                    "fullReset:false"  //restart the iPhone/simulator and install the app
+            }
+    )
+    @Test(groups = "Tact-Sanity", description = "Calendar Actions", dataProvider = "yamlDataProvider", dependsOnMethods = "TactOnboardingFeature")
+    void TactCalendarFeature(UserInfor userInfor) throws InterruptedException {
+        CustomPicoContainer.userInfor = userInfor;
+        System.out.println("TestRunner - Test - feature");
+        System.out.println("Grid.driver().getCapabilities() ==> " + Grid.driver().getCapabilities() + "\n");
+
+        //Calendar
+        testNGCucumberRunner = new TestNGCucumberRunner(IOSTestInncerRunCukesClass.TactCalendarFeatureRunCukesNoReset.class);
         testNGCucumberRunner.runCukes();
     }
 
@@ -179,8 +179,6 @@ public class IOSTactSanityTesting extends CustomPicoContainer {
         //DataSources
         testNGCucumberRunner = new TestNGCucumberRunner(IOSTestInncerRunCukesClass.TactDataSourcesFeatureRunCukesNoReset.class);
         testNGCucumberRunner.runCukes();
-//        System.out.println("testNGCucumberRunner.finish(); FINISHED");
-//        testNGCucumberRunner.finish();
     }
 
     //getAppVersion
@@ -193,7 +191,7 @@ public class IOSTactSanityTesting extends CustomPicoContainer {
             }
     )
     //w/ data provider
-    @Test(groups = "Tact-login", description = "Runs Tact - login", dataProvider = "yamlDataProvider", dependsOnMethods = "TactOnboardingFeature")
+    @Test(groups = "Tact-login", description = "Get Tact Version", dataProvider = "yamlDataProvider", dependsOnMethods = "TactOnboardingFeature")
     void TactGetAppVersion(UserInfor userInfor) throws InterruptedException {
         CustomPicoContainer.userInfor = userInfor;
         System.out.println("TestRunner - Test - feature");
@@ -224,8 +222,6 @@ public class IOSTactSanityTesting extends CustomPicoContainer {
         //delete account
         testNGCucumberRunner = new TestNGCucumberRunner(IOSTestInncerRunCukesClass.TactDeleteAccountRunCukesNoReset.class);
         testNGCucumberRunner.runCukes();
-//        System.out.println("testNGCucumberRunner.finish(); FINISHED");
-//        testNGCucumberRunner.finish();
     }
 
     @AfterClass(alwaysRun = true)

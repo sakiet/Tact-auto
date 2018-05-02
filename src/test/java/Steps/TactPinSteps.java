@@ -195,6 +195,7 @@ public class TactPinSteps implements En {
                     System.out.println("Do a simple reminder");
                     tactTaskPage.getIosReminderButton().tap(tactTaskPage.getSelectDueReminderDateDoneAndOKButton());
                     IOSTime.changeDateAndTime(reminderDate,reminderTime);
+                    WebDriverWaitUtils.waitUntilElementIsVisible(tactTaskPage.getNewTaskTitleLabel());
                 }
             }
         });

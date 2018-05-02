@@ -187,8 +187,8 @@ public class IOSTestInncerRunCukesClass {
             ,tags={"@Event"}
             , format = {
             "pretty",
-            "html:target/report/cucumber-pretty-TactLeadFeatureRunCukesNoReset",
-            "json:target/report/TactLeadFeatureRunCukesNoReset.json"}
+            "html:target/report/cucumber-pretty-TactCalendarFeatureRunCukesNoReset",
+            "json:target/report/TactCalendarFeatureRunCukesNoReset.json"}
     )
     public class TactCalendarFeatureRunCukesNoReset extends AbstractTestNGCucumberTests {
         @Test
